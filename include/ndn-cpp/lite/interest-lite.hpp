@@ -107,10 +107,8 @@ public:
 
   const ExcludeLite&
   getExclude() const { return ExcludeLite::downCast(exclude); }
-
   int
   getChildSelector() const { return childSelector; }
-
   /**
    * Return true if the content must be fresh. The default is false.
    * @return True if must be fresh, otherwise false.
@@ -212,7 +210,6 @@ public:
     this->childSelector = childSelector;
     return *this;
   }
-
   /**
    * Set the MustBeFresh flag.
    * @param mustBeFresh True if the content must be fresh, otherwise false. If

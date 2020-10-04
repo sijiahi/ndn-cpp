@@ -129,9 +129,11 @@ encodeInterestValueV02(const void *context, struct ndn_TlvEncoder *encoder)
         interestValueContext->signedPortionEndOffset, encoder)))
     return error;
   // For Selectors, set omitZeroLength true.
+  // Debug:10.04 Disable Selector
+  /*  
   if ((error = ndn_TlvEncoder_writeNestedTlv(encoder, ndn_Tlv_Selectors, encodeSelectorsValue, interest, 1)))
     return error;
-
+  */
   // Encode the Nonce as 4 bytes.
   nonceBlob.length = sizeof(nonceBuffer);
   if (interest->nonce.length == 0) {
@@ -339,10 +341,11 @@ decodeSelectors(struct ndn_Interest *interest, struct ndn_TlvDecoder *decoder)
   ndn_Error error;
   size_t endOffset;
   int gotExpectedType;
-
+// Debug:10.04 Disable Selector
+/*
   if ((error = ndn_TlvDecoder_readNestedTlvsStart(decoder, ndn_Tlv_Selectors, &endOffset)))
     return error;
-
+*/
   if ((error = ndn_TlvDecoder_readOptionalNonNegativeIntegerTlv
        (decoder, ndn_Tlv_MinSuffixComponents, endOffset, &interest->minSuffixComponents)))
     return error;
@@ -448,9 +451,11 @@ ndn_decodeTlvInterestV02
        (&interest->name, signedPortionBeginOffset, signedPortionEndOffset,
         decoder)))
     return error;
-
+// Debug:10.04 Disable Selector
+/*
   if ((error = ndn_TlvDecoder_peekType(decoder, ndn_Tlv_Selectors, endOffset, &gotExpectedType)))
     return error;
+    */
   if (gotExpectedType) {
     if ((error = decodeSelectors(interest, decoder)))
       return error;
